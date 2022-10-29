@@ -13,7 +13,8 @@ class OnlyUserSerializer(serializers.ModelSerializer):
 class PostModelSerializer(serializers.ModelSerializer):
     class Meta:
         model = PostModel
-        fields = ['id', 'post_text']
+        fields = ['id', 'post_text', 'post_author']
+        read_only_fields = ['post_author']
 
         
     # def get_author(self, postAuthor):
@@ -26,7 +27,12 @@ class LikeModelSerializer(serializers.ModelSerializer):
         exclude = ['post', 'user', 'like_created']
 
 
-class CommentModelSerializer(serializers.ModelSerializer):
-    class Meta:
+class CommentCreateSerializer(serializers.ModelSerializer):
+    owner = serializers.SerializerMethodField()
+    class Meta():
         model = CommentModel
-        exclude = ['post', 'user', 'comment_created']
+        fields = 'all'
+        read_only_fields = ['post', 'user', 'comment_date']
+
+    def get_owner(self ,obj):
+        return OnlyUserSerializer(obj.user).data

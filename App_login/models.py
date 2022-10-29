@@ -79,6 +79,14 @@ class Profile(models.Model):
         return True
 
 
+
+class OTPModel(models.Model):
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="otp_user")
+    otp = models.IntegerField()
+    created = models.DateTimeField(auto_now_add=True)
+    updated = models.DateTimeField(auto_now=True)
+
+
 class ContactUsModel(models.Model):
     Name = models.CharField(max_length=200)
     email = models.EmailField()

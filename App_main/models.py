@@ -15,6 +15,10 @@ class PostModel(models.Model):
 
     def __str__(self):
         return self.post_text
+    
+    def post_author(self):
+        author_name = self.author.profile.full_name
+        return author_name
 
 
 class LikeModel(models.Model):

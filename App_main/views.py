@@ -90,3 +90,21 @@ def unlikeAPIView(request, post_id):
         return Response({"Success": "deleted"})
     else:
         return Response({"Error": "Unlike not possible"})
+
+
+class CommentViewSet(ListCreateAPIView):
+    permission_classes = [permissions.IsAuthenticated, ]
+    queryset = CommentModel.objects.all()
+    serializer_class = CommentCreateSerializer 
+    filter_backends = [filters.OrderingFilter]
+    ordering = ['-comment_date']
+
+    def perform_create(self, serializer):
+        return serializer.save(user=self.request.user)
+
+    def create(self ,request , pk=None):
+        serializer = self.get_serializer(data = request.data)
+        serializer.is_valid(raise_exception=True)
+        post_id = get_object_or_404(PostModel, id=pk)
+        serializer.save(user = self.request.user, post = post_id)
+        return Response({"Success": "Successfully commented"})

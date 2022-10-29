@@ -14,7 +14,7 @@ from App_login.serializers import *
 @api_view(['POST'])
 def registerAPIView(request):
     if request.method == 'POST':
-        name = request.data['full_name']
+        name = request.data['name']
         email = request.data['email']
         password = request.data['password']
         password2 = request.data['password2']
@@ -29,5 +29,15 @@ def registerAPIView(request):
             return Response({"Error": "Password is not matched!!!"})
 
 
-
-
+@api_view(['POST'])
+def otp_checker(request):
+    if request.method == 'POST':
+        OTP = request.data['otp']
+        myOTP = OTPModel.objects.get(user=request.user)
+        if OTP == myOTP.otp:
+            otp = f"{request.user.id}-{random.randint(100000,999999)}"
+            myOTP.otp = otp
+            myOTP.save()
+            return Response({"Success": "Correct OTP"})
+        else:
+            return Response({"Wrong": "Incorrect OTP"})

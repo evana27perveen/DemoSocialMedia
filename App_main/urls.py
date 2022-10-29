@@ -9,4 +9,5 @@ urlpatterns = [
     path('add-new-post-api/', views.AddNewPostAPIView.as_view()),
     path('like-post-api/', views.LikePostAPIView.as_view()),
     path('unlike-post-api/<int:post_id>/', views.unlikeAPIView),
+    path('post-comment-api/<int:pk>/', views.CommentViewSet.as_view()),
 ]

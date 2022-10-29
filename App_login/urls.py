@@ -8,4 +8,5 @@ urlpatterns = [
     path('register/', views.registerAPIView),
     path('token/', TokenObtainPairView.as_view()),
     path('refresh-token/', TokenRefreshView.as_view()),
+    path('otp/', views.otp_checker)
 ]
