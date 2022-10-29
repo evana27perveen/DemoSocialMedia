@@ -12,4 +12,6 @@
 4. Home Page:
 ![s3](https://user-images.githubusercontent.com/76217577/198824468-2332d21e-12fe-49ce-a882-d37ce765311f.png)
 
+5. Like & Comments: 
 
+![s5](https://user-images.githubusercontent.com/76217577/198824706-7348a785-df85-48f2-b10a-92e09ebda173.png)
